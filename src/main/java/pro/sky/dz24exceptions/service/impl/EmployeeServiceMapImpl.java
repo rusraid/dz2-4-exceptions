@@ -11,12 +11,25 @@ import java.util.*;
 @Service
 public class EmployeeServiceMapImpl implements EmployeeMapService {
 
-    private Map<String, Employee> employees = new HashMap<>();
+    private final Map<String, Employee> employees = new HashMap<>();
 
     @Override
     public Employee addEmployee(String firstName, String lastName) {
 
         Employee addingEmployee = new Employee(firstName, lastName);
+
+        String key = firstName + lastName;
+        if (employees.containsKey(key)) {
+            throw new EmployeeExistException("This employee has been already added");
+        }
+        employees.put(key, addingEmployee);
+        return addingEmployee;
+    }
+
+    @Override
+    public Employee addEmployee(String firstName, String lastName, int salary, int departmentId) {
+
+        Employee addingEmployee = new Employee(firstName, lastName, salary, departmentId);
 
         String key = firstName + lastName;
         if (employees.containsKey(key)) {
