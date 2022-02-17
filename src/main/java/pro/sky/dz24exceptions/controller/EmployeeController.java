@@ -1,5 +1,6 @@
 package pro.sky.dz24exceptions.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,7 +38,8 @@ public class EmployeeController {
                                 @RequestParam ("lastName") String lastname,
                                 @RequestParam ("salary") int salary,
                                 @RequestParam ("departmentId") int departmentId) {
-        return employeeService.addEmployee(firstname, lastname, salary, departmentId);
+//        return employeeService.addEmployee(firstname, lastname, salary, departmentId);
+        return employeeService.addEmployee(StringUtils.capitalize(firstname), StringUtils.capitalize(lastname), salary, departmentId);
     }
 
     @GetMapping("/remove")

@@ -1,5 +1,6 @@
 package pro.sky.dz24exceptions.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.dz24exceptions.data.Employee;
 import pro.sky.dz24exceptions.exceptions.EmployeeExistException;
@@ -34,6 +35,10 @@ public class EmployeeServiceMapImpl implements EmployeeMapService {
         String key = firstName + lastName;
         if (employees.containsKey(key)) {
             throw new EmployeeExistException("This employee has been already added");
+        }
+        if (!StringUtils.isAlphaSpace(firstName) || !StringUtils.isAlphaSpace(lastName)) {
+            throw new EmployeeExistException
+                    ("The name and surname of the employee must not contain numbers and symbols!");
         }
         employees.put(key, addingEmployee);
         return addingEmployee;
